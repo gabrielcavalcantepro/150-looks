@@ -563,25 +563,19 @@ ul {
 
 .media-slot__image {
   width: 100%;
-  object-fit: cover;
+  height: auto;
+  display: block;
   border-radius: var(--radius-md);
 }
 
 .media-slot__image--circle {
   border-radius: 50%;
   width: 96px;
+  height: 96px;
+  object-fit: cover;
   align-self: center;
 }
 
-.image-strip {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-}
-
-.image-strip--3 {
-  grid-template-columns: 1fr 1fr 1fr;
-}
 
 /* ---------------------------------------------------------------------
    Badges
@@ -608,58 +602,6 @@ ul {
   background: transparent;
   border: 1.5px solid var(--color-accent);
   color: var(--color-accent-dark);
-}
-
-/* ---------------------------------------------------------------------
-   Testimonials
---------------------------------------------------------------------- */
-.testimonial-list {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.testimonial-card {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  padding: 14px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.testimonial-card__quote {
-  font-size: 0.9rem;
-  font-style: italic;
-}
-
-.testimonial-card__meta {
-  font-size: 0.78rem;
-  color: var(--color-text-muted);
-}
-
-.quote-list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.quote-list__item {
-  font-size: 0.9rem;
-  font-style: italic;
-  background: var(--color-surface);
-  border-radius: var(--radius-sm);
-  padding: 12px;
-}
-
-.embedded-testimonial-placeholder {
-  border: 1.5px dashed var(--color-border);
-  border-radius: var(--radius-md);
-  padding: 14px;
-  font-size: 0.8rem;
-  color: var(--color-text-muted);
-  text-align: center;
 }
 
 /* ---------------------------------------------------------------------

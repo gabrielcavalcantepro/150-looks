@@ -57,16 +57,6 @@ export function render(container, ctx) {
   verified.textContent = content.verifiedLabel;
   wrap.appendChild(verified);
 
-  const quote = document.createElement('p');
-  quote.className = 'step-paragraph';
-  quote.textContent = `"${content.quote}"`;
-  wrap.appendChild(quote);
-
-  const socialProof = document.createElement('p');
-  socialProof.className = 'step-footnote';
-  socialProof.textContent = content.socialProof;
-  wrap.appendChild(socialProof);
-
   container.appendChild(wrap);
 
   const startedAt = Date.now();

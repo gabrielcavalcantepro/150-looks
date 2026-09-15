@@ -25,6 +25,7 @@ import * as ocasiao from '../steps/18-ocasiao.js';
 import * as prazo from '../steps/19-prazo.js';
 import * as projecao from '../steps/20-projecao.js';
 import * as provaSocial2 from '../steps/21-provaSocial2.js';
+import * as desempate from '../steps/21b-desempate.js';
 import * as loading from '../steps/22-loading.js';
 import * as diagnostico from '../steps/23-diagnostico.js';
 import * as oferta from '../steps/24-oferta.js';
@@ -65,6 +66,10 @@ const DEFS = [
   { number: 19, id: 'prazo', module: prazo },
   { number: 20, id: 'projecao', module: projecao },
   { number: 21, id: 'provaSocial2', module: provaSocial2 },
+  // Etapa 21B: condicional, só aparece em caso de empate (ver
+  // desempate.shouldShow). Mantém a numeração 22/23/24 das etapas
+  // seguintes, como no arquivo de conteúdo.
+  { number: 21.5, id: 'desempate', module: desempate },
   { number: 22, id: 'loading', module: loading },
   { number: 23, id: 'diagnostico', module: diagnostico },
   { number: 24, id: 'oferta', module: oferta },
@@ -76,4 +81,7 @@ export const STEPS = DEFS.map(({ number, id, module }) => ({
   showBack: showBackFor(number),
   showProgress: showProgressFor(number),
   render: module.render,
+  // Etapas normais sempre aparecem; etapas condicionais (ex.: 21B) expõem
+  // um shouldShow(ctx) que a engine de navegação consulta antes de renderizar.
+  shouldShow: module.shouldShow || null,
 }));

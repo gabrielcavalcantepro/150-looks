@@ -112,18 +112,31 @@ export function createQuizEngine({ steps, mountEl }) {
     window.scrollTo({ top: 0, behavior: 'instant' in window ? 'instant' : 'auto' });
   }
 
+  // Etapas condicionais (ex.: 21B, só em caso de empate) expõem um
+  // shouldShow(ctx); goNext/goBack pulam por cima delas quando ele retorna
+  // false, sem renderizar nada nessas posições.
+  function isStepVisible(step) {
+    return step.shouldShow ? step.shouldShow(ctx) : true;
+  }
+
   function goNext() {
-    if (state.currentStepIndex < steps.length - 1) {
-      state.currentStepIndex += 1;
-      renderCurrentStep();
+    if (state.currentStepIndex >= steps.length - 1) return;
+    let idx = state.currentStepIndex + 1;
+    while (idx < steps.length - 1 && !isStepVisible(steps[idx])) {
+      idx += 1;
     }
+    state.currentStepIndex = idx;
+    renderCurrentStep();
   }
 
   function goBack() {
-    if (state.currentStepIndex > 0) {
-      state.currentStepIndex -= 1;
-      renderCurrentStep();
+    if (state.currentStepIndex <= 0) return;
+    let idx = state.currentStepIndex - 1;
+    while (idx > 0 && !isStepVisible(steps[idx])) {
+      idx -= 1;
     }
+    state.currentStepIndex = idx;
+    renderCurrentStep();
   }
 
   renderCurrentStep();

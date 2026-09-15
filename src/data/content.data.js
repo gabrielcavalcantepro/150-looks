@@ -2,15 +2,10 @@
 // Fonte de verdade para todo o texto exibido no quiz. Não resumir/reescrever
 // aqui: qualquer ajuste de copy deve vir do arquivo de conteúdo.
 //
-// Os números de prova social ([SUBSTITUIR: nº...]) vêm de placeholders.data.js
-// e são interpolados aqui — um único lugar para editar cada contador.
+// O número de prova social da Etapa 7 ([SUBSTITUIR: nº...]) vem de
+// placeholders.data.js e é interpolado aqui.
 
-import {
-  SOCIAL_PROOF_COUNT_STEP7,
-  SOCIAL_PROOF_COUNT_STEP22,
-  SOCIAL_PROOF_COUNT_OFFER,
-  TESTIMONIAL_QUOTE_STEP22,
-} from './placeholders.data.js';
+import { SOCIAL_PROOF_COUNT_STEP7 } from './placeholders.data.js';
 
 export const CONTENT = {
   landing: {
@@ -51,6 +46,8 @@ export const CONTENT = {
       { value: 'look3', label: 'Look 3', imageKey: 'look3' },
       { value: 'look4', label: 'Look 4', imageKey: 'look4' },
       { value: 'look5', label: 'Look 5', imageKey: 'look5' },
+      { value: 'look6', label: 'Look 6', imageKey: 'look6' },
+      { value: 'look7', label: 'Look 7', imageKey: 'look7' },
     ],
   },
 
@@ -60,10 +57,12 @@ export const CONTENT = {
     subtitle: 'Escolha a opção que mais se aplica a você',
     options: [
       { value: 'praticidade', emoji: '🏃', label: 'Mais praticidade pra montar looks rápido' },
-      { value: 'pararRepetir', emoji: '🎨', label: 'Parar de repetir sempre as mesmas combinações' },
+      { value: 'estiloAtemporal', emoji: '👑', label: 'Ter um estilo atemporal, que nunca sai de moda' },
       { value: 'elevarNivel', emoji: '✨', label: 'Elevar o nível dos meus looks' },
-      { value: 'bonitaDesejavel', emoji: '💕', label: 'Me sentir mais bonita e desejável' },
-      { value: 'confiancaOusar', emoji: '🔥', label: 'Ter mais confiança pra ousar' },
+      { value: 'romanticaDelicada', emoji: '💕', label: 'Me sentir romântica e delicada' },
+      { value: 'pararRepetir', emoji: '🎨', label: 'Parar de repetir sempre as mesmas combinações' },
+      { value: 'sexyPoderosa', emoji: '🔥', label: 'Me sentir sexy e poderosa' },
+      { value: 'confiancaOusar', emoji: '⚡', label: 'Ter mais confiança pra ousar' },
     ],
   },
 
@@ -80,18 +79,18 @@ export const CONTENT = {
   },
 
   pecas: {
-    title: 'Quais peças mais representam você no dia a dia?',
-    titleHighlight: 'representam',
-    subtitle: 'Pode selecionar mais de uma opção',
+    title: 'Qual dessas peças mais representa você no dia a dia?',
+    titleHighlight: 'representa',
+    subtitle: 'Escolha a que mais combina com você',
     options: [
-      { value: 'jeansTenis', emoji: '👖', label: 'Jeans e tênis' },
-      { value: 'blazer', emoji: '👔', label: 'Blazer e alfaiataria' },
-      { value: 'vestidoFluido', emoji: '👗', label: 'Vestidos fluidos e delicados' },
-      { value: 'statement', emoji: '🧥', label: 'Peças statement e diferentes' },
-      { value: 'justas', emoji: '👙', label: 'Peças justas que valorizam o corpo' },
-      { value: 'umPoucoDeTudo', emoji: '✨', label: 'Um pouco de tudo' },
+      { value: 'jeansTenis', emoji: '👖', label: 'Jeans e tênis, sempre práticos' },
+      { value: 'blazerAlfaiataria', emoji: '👔', label: 'Blazer e alfaiataria certinha' },
+      { value: 'tubinhoSaltos', emoji: '🖤', label: 'Vestido tubinho e saltos' },
+      { value: 'vestidoFluidoRendado', emoji: '👗', label: 'Vestido fluido e rendado' },
+      { value: 'estampasOusadas', emoji: '🎨', label: 'Estampas ousadas e acessórios diferentes' },
+      { value: 'justasCouro', emoji: '💃', label: 'Peças justas, decote e couro' },
+      { value: 'jaquetaEstruturada', emoji: '🧥', label: 'Jaqueta estruturada e cores fortes' },
     ],
-    cta: 'Continuar →',
   },
 
   provaSocial1: {
@@ -292,6 +291,11 @@ export const CONTENT = {
     cta: 'Ver meu Diagnóstico Personalizado →',
   },
 
+  desempate: {
+    title: 'Ficamos entre 2 estilos pra você. Qual desses te representa mais?',
+    titleHighlight: '2 estilos',
+  },
+
   loading: {
     title: '⚙️ Gerando seu Diagnóstico de Estilo...',
     titleHighlight: 'Diagnóstico',
@@ -303,8 +307,6 @@ export const CONTENT = {
     ],
     imageLabel: 'antes/depois de look, SUBSTITUIR',
     verifiedLabel: 'Resultado Verificado ✅',
-    quote: TESTIMONIAL_QUOTE_STEP22,
-    socialProof: `⭐⭐⭐⭐⭐ +${SOCIAL_PROOF_COUNT_STEP22} mulheres já descobriram seu estilo`,
   },
 
   diagnostico: {
@@ -350,7 +352,6 @@ export const CONTENT = {
     guaranteeTitle: 'Garantia: 90 dias incondicionais',
     guaranteeText:
       'Risco ZERO. Se você não gostar do guia, por qualquer motivo, dentro de 90 dias após a compra, basta pedir seu dinheiro de volta.',
-    socialProofLine: `Mais de ${SOCIAL_PROOF_COUNT_OFFER} mulheres já descobriram seu estilo com o guia +150 Looks!`,
     recapTitle: '📋 Resumindo...',
     recapParagraphs: [
       'Pode ser a última vez que você acessa esta página, então sugiro que garanta seu acesso agora.',

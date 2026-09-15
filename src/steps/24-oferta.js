@@ -1,9 +1,7 @@
 import { CONTENT } from '../data/content.data.js';
-import { TESTIMONIALS_STEP24 } from '../data/testimonials.data.js';
 import { AUTHOR_NAME, AUTHOR_BIO, AUTHOR_PHOTO, CHECKOUT_URL } from '../data/placeholders.data.js';
 import { createButton } from '../ui/button.js';
 import { createBadge } from '../ui/badge.js';
-import { createTestimonialCard } from '../ui/testimonialCard.js';
 import { createMediaSlot } from '../ui/mediaSlot.js';
 import { createShieldCheckIcon } from '../ui/shieldCheckIcon.js';
 import { appendHighlightedText } from '../ui/highlightText.js';
@@ -157,16 +155,6 @@ export function render(container, ctx) {
 
   wrap.appendChild(guaranteeBox);
 
-  const socialProofLine = document.createElement('p');
-  socialProofLine.className = 'step-subtitle';
-  socialProofLine.textContent = content.socialProofLine;
-  wrap.appendChild(socialProofLine);
-
-  const testimonials = document.createElement('div');
-  testimonials.className = 'testimonial-list';
-  TESTIMONIALS_STEP24.forEach((t) => testimonials.appendChild(createTestimonialCard(t)));
-  wrap.appendChild(testimonials);
-
   const recapBox = document.createElement('div');
   recapBox.className = 'recap-box';
 
@@ -211,19 +199,19 @@ export function render(container, ctx) {
   aboutTitle.textContent = content.aboutTitle;
   aboutSection.appendChild(aboutTitle);
 
-  aboutSection.appendChild(
-    createMediaSlot({ src: AUTHOR_PHOTO, alt: 'Foto da autora', aspectRatio: '1 / 1', shape: 'circle' })
-  );
+  aboutSection.appendChild(createMediaSlot({ src: AUTHOR_PHOTO, alt: 'Foto da autora', aspectRatio: '1 / 1' }));
 
   const authorName = document.createElement('p');
   authorName.className = 'author-section__name';
   authorName.textContent = AUTHOR_NAME;
   aboutSection.appendChild(authorName);
 
-  const authorBio = document.createElement('p');
-  authorBio.className = 'step-paragraph';
-  authorBio.textContent = `Prazer, sou ${AUTHOR_NAME}. ${AUTHOR_BIO}`;
-  aboutSection.appendChild(authorBio);
+  AUTHOR_BIO.forEach((paragraph) => {
+    const authorBio = document.createElement('p');
+    authorBio.className = 'step-paragraph';
+    authorBio.textContent = paragraph;
+    aboutSection.appendChild(authorBio);
+  });
 
   const aboutClosing = document.createElement('p');
   aboutClosing.className = 'step-paragraph';

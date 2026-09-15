@@ -1,7 +1,9 @@
 import { CONTENT } from '../data/content.data.js';
-import { STYLE_LABELS } from '../data/scoring.data.js';
+import { STYLE_LABELS, STYLE_SUMMARIES, getLookImageKeyForStyle } from '../data/scoring.data.js';
+import { LOOK_IMAGES, LOOK_IMAGE_LABELS } from '../data/placeholders.data.js';
 import { createCompareTable } from '../ui/compareTable.js';
 import { createButton } from '../ui/button.js';
+import { createMediaSlot } from '../ui/mediaSlot.js';
 import { appendHighlightedText } from '../ui/highlightText.js';
 import { interpolate } from '../engine/interpolate.js';
 
@@ -36,6 +38,21 @@ export function render(container, ctx) {
   banner.appendChild(title);
 
   wrap.appendChild(banner);
+
+  // Imagem + texto-resumo do estilo vencedor (reaproveita as 7 imagens da Etapa 3)
+  const lookKey = getLookImageKeyForStyle(result.primary);
+  wrap.appendChild(
+    createMediaSlot({
+      src: LOOK_IMAGES[lookKey],
+      alt: LOOK_IMAGE_LABELS[lookKey] || STYLE_LABELS[result.primary],
+      aspectRatio: '3 / 4',
+    })
+  );
+
+  const styleSummary = document.createElement('p');
+  styleSummary.className = 'step-paragraph';
+  styleSummary.textContent = STYLE_SUMMARIES[result.primary];
+  wrap.appendChild(styleSummary);
 
   // 📊 Seu Perfil de Estilo — gráfico de compatibilidade
   const chartTitle = document.createElement('h2');
@@ -88,17 +105,14 @@ export function render(container, ctx) {
 
   const objetivoLabel = ctx.getOptionLabel('motivo', ctx.getAnswer('motivo'));
   const rotinaLabel = ctx.getOptionLabel('rotina', ctx.getAnswer('rotina'));
-  const pecasLabels = (ctx.getAnswer('pecas') || [])
-    .map((value) => ctx.getOptionLabel('pecas', value))
-    .filter(Boolean)
-    .join(', ');
+  const pecaLabel = ctx.getOptionLabel('pecas', ctx.getAnswer('pecas'));
 
   const summaryList = document.createElement('ul');
   summaryList.className = 'summary-list';
   [
     ['Objetivo', objetivoLabel],
     ['Rotina', rotinaLabel],
-    ['Peças-chave pro seu estilo', pecasLabels],
+    ['Peças-chave pro seu estilo', pecaLabel],
     ['Versão do guia', ctx.getGuideVersion()],
   ].forEach(([label, value]) => {
     const li = document.createElement('li');

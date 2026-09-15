@@ -1,9 +1,5 @@
 import { CONTENT } from '../data/content.data.js';
-import {
-  EMBEDDED_TESTIMONIAL_STEP13,
-  TESTIMONIAL_IMAGE_STEP13_1,
-  TESTIMONIAL_IMAGE_STEP13_2,
-} from '../data/placeholders.data.js';
+import { TESTIMONIAL_IMAGE_STEP13_1, TESTIMONIAL_IMAGE_STEP13_2 } from '../data/placeholders.data.js';
 import { createButton } from '../ui/button.js';
 import { createCompareTable } from '../ui/compareTable.js';
 import { createMediaSlot } from '../ui/mediaSlot.js';
@@ -37,18 +33,12 @@ export function render(container, ctx) {
   highlight.textContent = interpolate(content.highlight, ctx);
   wrap.appendChild(highlight);
 
-  const testimonialImages = document.createElement('div');
-  testimonialImages.className = 'image-strip';
-  testimonialImages.append(
-    createMediaSlot({ src: TESTIMONIAL_IMAGE_STEP13_1, alt: 'depoimento 1', aspectRatio: '1 / 1' }),
-    createMediaSlot({ src: TESTIMONIAL_IMAGE_STEP13_2, alt: 'depoimento 2', aspectRatio: '1 / 1' })
+  wrap.appendChild(
+    createMediaSlot({ src: TESTIMONIAL_IMAGE_STEP13_1, alt: 'depoimento 1', aspectRatio: '4 / 3' })
   );
-  wrap.appendChild(testimonialImages);
-
-  const embedded = document.createElement('div');
-  embedded.className = 'embedded-testimonial-placeholder';
-  embedded.textContent = EMBEDDED_TESTIMONIAL_STEP13;
-  wrap.appendChild(embedded);
+  wrap.appendChild(
+    createMediaSlot({ src: TESTIMONIAL_IMAGE_STEP13_2, alt: 'depoimento 2', aspectRatio: '4 / 3' })
+  );
 
   wrap.appendChild(createCompareTable(content.table));
 

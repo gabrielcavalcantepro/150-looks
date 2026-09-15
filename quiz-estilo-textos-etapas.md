@@ -41,6 +41,9 @@ Definimos os 5 bônus com valor individual, usados pra calcular o preço-âncora
 **O que ainda falta**
 Bio da autora será enviada depois, diretamente pro Claude Code — o layout precisa ficar pronto pra receber esse conteúdo sem travar o desenvolvimento. Depoimentos e imagens reais continuam como placeholder (`[SUBSTITUIR]`).
 
+**Assertividade da pontuação (rodada 2)**
+As Etapas 3, 4 e 6 foram redesenhadas pra mapeamento **100% exclusivo** — cada opção pontua só 1 estilo, sem mais pontos compartilhados entre 2 estilos. A Etapa 3 (visual) ganhou 2 looks novos (Tradicional e Dramático Urbano, que antes dividiam pontuação com outros looks) e passou a ter **peso 2** na fórmula final, por ser o sinal mais confiável. A Etapa 6 deixou de ser multi-select. Foi adicionada uma **etapa condicional de desempate** (Etapa 21B), que só aparece se 2 estilos ficarem empatados. O microfeedback pós-resultado foi descartado — decidimos não arriscar gerar dúvida logo antes da oferta. A Etapa 23 (Diagnóstico) agora mostra uma **imagem + texto-resumo** dedicados a cada um dos 7 estilos possíveis, reaproveitando as mesmas 7 imagens da Etapa 3.
+
 ---
 
 ## Etapa 1: Landing page / Opt-in
@@ -83,13 +86,17 @@ Isso ajuda a entender melhor o seu momento de vida
 **Qual desses looks mais chama sua atenção?**
 Confie no seu instinto, não pense demais
 
-`[IMAGEM 1: look casual/confortável]` Look 1
-`[IMAGEM 2: look clássico/alfaiataria discreta]` Look 2
-`[IMAGEM 3: look ousado/misturado/estampado]` Look 3
+`[IMAGEM 1: look casual/confortável — jeans, tênis, peças descomplicadas]` Look 1
+`[IMAGEM 2: look elegante/sofisticado — vestido tubinho ou alfaiataria com caimento impecável]` Look 2
+`[IMAGEM 3: look ousado/estampado/mix]` Look 3
 `[IMAGEM 4: look justo/sensual]` Look 4
 `[IMAGEM 5: look romântico/fluido — vestido leve, tecido fluido, detalhes delicados]` Look 5
+`[IMAGEM 6: look clássico atemporal — calça alfaiataria, camisa branca, blazer estruturado, cores neutras]` Look 6
+`[IMAGEM 7: look estruturado urbano — peças statement, cores fortes/pretas, silhueta marcante]` Look 7
 
-*Pontuação: Look 1 → Esportivo + Tradicional · Look 2 → Elegante + Tradicional · Look 3 → Criativo + Dramático Urbano · Look 4 → Sexy + Dramático Urbano · Look 5 → Romântico*
+*Pontuação (peso 2, mapeamento 100% exclusivo): Look 1 → Esportivo · Look 2 → Elegante · Look 3 → Criativo · Look 4 → Sexy · Look 5 → Romântico · Look 6 → Tradicional · Look 7 → Dramático Urbano*
+
+*Essas mesmas 7 imagens são reaproveitadas como imagem de resultado na Etapa 23 e na Etapa 21B (desempate) — não é preciso produzir imagens novas pra isso.*
 
 ---
 
@@ -101,12 +108,14 @@ Confie no seu instinto, não pense demais
 Escolha a opção que mais se aplica a você
 
 🏃 Mais praticidade pra montar looks rápido
-🎨 Parar de repetir sempre as mesmas combinações
+👑 Ter um estilo atemporal, que nunca sai de moda
 ✨ Elevar o nível dos meus looks
-💕 Me sentir mais bonita e desejável
-🔥 Ter mais confiança pra ousar
+💕 Me sentir romântica e delicada
+🎨 Parar de repetir sempre as mesmas combinações
+🔥 Me sentir sexy e poderosa
+⚡ Ter mais confiança pra ousar
 
-*Pontuação: praticidade → Esportivo · parar de repetir → Criativo · elevar nível → Elegante · bonita/desejável → Romântico + Sexy · confiança pra ousar → Dramático Urbano*
+*Pontuação (peso 1, mapeamento 100% exclusivo): praticidade → Esportivo · estilo atemporal → Tradicional · elevar nível → Elegante · romântica/delicada → Romântico · parar de repetir → Criativo · sexy/poderosa → Sexy · confiança pra ousar → Dramático Urbano*
 
 ---
 
@@ -124,23 +133,22 @@ Seja honesta, isso personaliza seu resultado
 
 ---
 
-## Etapa 6: Peças favoritas (multi-select)
+## Etapa 6: Peça favorita (seleção única)
 
 ← Voltar
 
-**Quais peças mais representam você no dia a dia?**
-Pode selecionar mais de uma opção
+**Qual dessas peças mais representa você no dia a dia?**
+Escolha a que mais combina com você
 
-👖 Jeans e tênis
-👔 Blazer e alfaiataria
-👗 Vestidos fluidos e delicados
-🧥 Peças statement e diferentes
-👙 Peças justas que valorizam o corpo
-✨ Um pouco de tudo
+👖 Jeans e tênis, sempre práticos
+👔 Blazer e alfaiataria certinha
+🖤 Vestido tubinho e saltos
+👗 Vestido fluido e rendado
+🎨 Estampas ousadas e acessórios diferentes
+💃 Peças justas, decote e couro
+🧥 Jaqueta estruturada e cores fortes
 
-**[ Continuar → ]**
-
-*Pontuação: jeans/tênis → Esportivo · blazer → Elegante + Tradicional · vestido fluido → Romântico · statement → Criativo + Dramático Urbano · justas → Sexy · "um pouco de tudo" → pontos distribuídos igualmente*
+*Pontuação (peso 1, mapeamento 100% exclusivo): jeans/tênis → Esportivo · blazer/alfaiataria → Tradicional · tubinho/saltos → Elegante · vestido fluido/rendado → Romântico · estampas ousadas → Criativo · justas/couro → Sexy · jaqueta estruturada/cores fortes → Dramático Urbano*
 
 ---
 
@@ -405,6 +413,19 @@ Isso vai calcular sua projeção personalizada
 
 ---
 
+## Etapa 21B (condicional): Desempate de estilo
+
+Só aparece se os 2 estilos com maior pontuação empatarem (ou ficarem muito próximos) após aplicar os pesos das Etapas 3, 4 e 6. Se não houver empate, o quiz pula direto pra Etapa 22.
+
+**Ficamos entre 2 estilos pra você. Qual desses te representa mais?**
+
+`[IMAGEM: foto de resultado do Estilo A — reaproveita a mesma imagem da Etapa 3 usada pra esse estilo]`
+`[IMAGEM: foto de resultado do Estilo B — reaproveita a mesma imagem da Etapa 3 usada pra esse estilo]`
+
+A opção escolhida vence o desempate e define o `[ESTILO_RESULTADO]` final.
+
+---
+
 ## Etapa 22: Loading — gerando diagnóstico
 
 ⚙️ **Gerando seu Diagnóstico de Estilo...**
@@ -429,6 +450,10 @@ Resultado Verificado ✅
 Com base no seu perfil...
 
 **`[Nome]`, seu estilo é: `[ESTILO_RESULTADO]`!**
+
+`[IMAGEM: foto de resultado do estilo — uma das 7 imagens da Etapa 3, correspondente ao ESTILO_RESULTADO]`
+
+`[TEXTO_RESUMO_ESTILO — resumo de 2-3 frases descrevendo o estilo pra ela. Ver os 7 textos prontos na seção "Resumo dos 7 estilos" logo após a tabela de pontuação.]`
 
 📊 **Seu Perfil de Estilo**
 `[Gráfico/barra mostrando % de compatibilidade com o estilo principal e, opcionalmente, o 2º estilo mais próximo]`
@@ -521,25 +546,55 @@ Você está a um clique de descobrir seu estilo e nunca mais sentir que não tem
 
 ## Tabela de pontuação por estilo
 
-| Etapa | Opção | Esportivo | Tradicional | Elegante | Romântico | Criativo | Sexy | Dramático Urbano |
-|---|---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| 3 (visual) | Look 1 | ✓ | ✓ | | | | | |
-| 3 (visual) | Look 2 | | ✓ | ✓ | | | | |
-| 3 (visual) | Look 3 | | | | | ✓ | | ✓ |
-| 3 (visual) | Look 4 | | | | | | ✓ | ✓ |
-| 3 (visual) | Look 5 | | | | ✓ | | | |
-| 4 (motivo) | Praticidade | ✓ | | | | | | |
-| 4 (motivo) | Parar de repetir | | | | | ✓ | | |
-| 4 (motivo) | Elevar o nível | | | ✓ | | | | |
-| 4 (motivo) | Bonita e desejável | | | | ✓ | | ✓ | |
-| 4 (motivo) | Confiança pra ousar | | | | | | | ✓ |
-| 6 (peças) | Jeans e tênis | ✓ | | | | | | |
-| 6 (peças) | Blazer | | ✓ | ✓ | | | | |
-| 6 (peças) | Vestido fluido | | | | ✓ | | | |
-| 6 (peças) | Statement | | | | | ✓ | | ✓ |
-| 6 (peças) | Justas | | | | | | ✓ | |
+Mapeamento 100% exclusivo — cada opção pontua só 1 estilo. Pontuação final = soma ponderada.
 
-Tabela é ponto de partida, vale revisar pesos durante o desenvolvimento. Prever empates (exibir os 2 estilos mais próximos quando a diferença de pontos for pequena). Com a Etapa 3 agora com 5 opções, todos os estilos têm 3 pontos de oportunidade na tabela, exceto Dramático Urbano (4).
+**Pesos:** Etapa 3 (visual) = peso 2 · Etapa 4 (motivo) = peso 1 · Etapa 6 (peça favorita) = peso 1 · Máximo possível por estilo = 4
+
+| Etapa | Opção | Estilo |
+|---|---|---|
+| 3 (visual, peso 2) | Look 1 | Esportivo |
+| 3 (visual, peso 2) | Look 2 | Elegante |
+| 3 (visual, peso 2) | Look 3 | Criativo |
+| 3 (visual, peso 2) | Look 4 | Sexy |
+| 3 (visual, peso 2) | Look 5 | Romântico |
+| 3 (visual, peso 2) | Look 6 | Tradicional |
+| 3 (visual, peso 2) | Look 7 | Dramático Urbano |
+| 4 (motivo, peso 1) | Praticidade | Esportivo |
+| 4 (motivo, peso 1) | Estilo atemporal | Tradicional |
+| 4 (motivo, peso 1) | Elevar o nível | Elegante |
+| 4 (motivo, peso 1) | Romântica e delicada | Romântico |
+| 4 (motivo, peso 1) | Parar de repetir | Criativo |
+| 4 (motivo, peso 1) | Sexy e poderosa | Sexy |
+| 4 (motivo, peso 1) | Confiança pra ousar | Dramático Urbano |
+| 6 (peça, peso 1) | Jeans e tênis | Esportivo |
+| 6 (peça, peso 1) | Blazer e alfaiataria | Tradicional |
+| 6 (peça, peso 1) | Vestido tubinho e saltos | Elegante |
+| 6 (peça, peso 1) | Vestido fluido e rendado | Romântico |
+| 6 (peça, peso 1) | Estampas ousadas | Criativo |
+| 6 (peça, peso 1) | Peças justas/couro | Sexy |
+| 6 (peça, peso 1) | Jaqueta estruturada/cores fortes | Dramático Urbano |
+
+**Desempate:** se os 2 estilos com maior pontuação ficarem empatados (ou com diferença ≤1 ponto), aciona a Etapa 21B antes de calcular o `[ESTILO_RESULTADO]` final.
+
+---
+
+## Resumo dos 7 estilos (usado na Etapa 23)
+
+**Esportivo:** Seu estilo é prático e despojado — você se sente bem em peças confortáveis que não perdem o toque de estilo. Jeans, tênis e peças versáteis são sua base, e seu guia vai te mostrar como criar looks incríveis sem abrir mão do conforto.
+
+**Tradicional:** Seu estilo é atemporal e certinho — você gosta de peças clássicas que nunca saem de moda. Alfaiataria, cores neutras e cortes bem definidos são sua marca registrada, e seu guia vai te ajudar a montar looks elegantes com poucas peças-chave.
+
+**Elegante:** Seu estilo é refinado e sofisticado — você gosta de elevar cada look, mesmo nos dias mais simples. Peças estruturadas e bem cortadas são sua praia, e seu guia vai te mostrar como parecer sempre impecável com poucas peças.
+
+**Romântico:** Seu estilo é delicado e fluido — você se sente mais você em tecidos leves, cores suaves e detalhes femininos. Vestidos fluidos e rendas são sua cara, e seu guia vai te mostrar como multiplicar esses looks sem repetir.
+
+**Criativo:** Seu estilo é único e cheio de personalidade — você adora misturar estampas, texturas e acessórios diferentes. Ousar é sua zona de conforto, e seu guia vai te mostrar como criar combinações originais com poucas peças.
+
+**Sexy:** Seu estilo é confiante e sedutor — você gosta de looks que valorizam seu corpo e realçam sua confiança. Peças justas e materiais como couro e cetim são sua assinatura, e seu guia vai te mostrar como montar looks poderosos com poucas peças.
+
+**Dramático Urbano:** Seu estilo é marcante e cheio de atitude — você gosta de looks estruturados que chamam atenção. Cores fortes e silhuetas statement são sua identidade, e seu guia vai te mostrar como criar looks impactantes com poucas peças.
+
+`[Todos os 7 textos acima são rascunho inicial — revisar tom antes de subir pro app.]`
 
 ---
 
@@ -547,6 +602,7 @@ Tabela é ponto de partida, vale revisar pesos durante o desenvolvimento. Prever
 
 1. Etapa 24 (Oferta) — bio da autora e foto de transformação (será enviada posteriormente ao Claude Code; manter layout pronto pra receber depois)
 2. Diversos — depoimentos e fotos reais de antes/depois (marcados como `[SUBSTITUIR]`)
-3. Imagens reais para os 5 looks da Etapa 3 (incluindo a nova opção romântica) e demais `[IMAGEM: ...]` do funil
+3. Imagens reais para os 7 looks da Etapa 3 — inclui 2 novas (Look 6 Tradicional, Look 7 Dramático Urbano) além das 5 já buscadas no Pinterest. Essas 7 imagens cobrem Etapa 3, Etapa 21B e Etapa 23 — não precisa produzir imagens extras pra essas duas últimas.
+4. Revisar o tom dos 7 textos-resumo de estilo (rascunho inicial na seção "Resumo dos 7 estilos") antes de subir pro app.
 
 Nenhuma dessas pendências impede a construção do quiz — o spec técnico vai prever esses pontos como configuráveis/placeholder.
